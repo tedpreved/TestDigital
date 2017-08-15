@@ -1,7 +1,7 @@
-package com.digital.teo.testdigital.network.ui.shows
+package com.digital.teo.testdigital.ui.shows
 
 import com.digital.teo.testdigital.network.ApiClient
-import com.digital.teo.testdigital.network.util.Utils
+import com.digital.teo.testdigital.util.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 /**

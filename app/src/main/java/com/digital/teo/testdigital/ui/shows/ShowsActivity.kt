@@ -1,4 +1,4 @@
-package com.digital.teo.testdigital.network.ui.shows
+package com.digital.teo.testdigital.ui.shows
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

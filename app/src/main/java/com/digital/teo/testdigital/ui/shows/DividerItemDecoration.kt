@@ -1,4 +1,4 @@
-package com.digital.teo.testdigital.network.ui.shows
+package com.digital.teo.testdigital.ui.shows
 
 import android.content.Context
 import android.graphics.Canvas

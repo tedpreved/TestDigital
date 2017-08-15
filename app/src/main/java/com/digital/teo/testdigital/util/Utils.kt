@@ -1,7 +1,5 @@
-package com.digital.teo.testdigital.network.util
+package com.digital.teo.testdigital.util
 
-import android.content.Context
-import android.widget.Toast
 import java.net.NetworkInterface
 import java.util.*
 

@@ -1,4 +1,4 @@
-package com.digital.teo.testdigital.network.ui.shows
+package com.digital.teo.testdigital.ui.shows
 
 import android.util.Log
 import com.digital.teo.testdigital.network.response.RxUtils
@@ -28,7 +28,7 @@ class ShowsPresenter : ShowsContract.Presenter {
         subscription?.add(model?.getShowsObservable(borderId = "0", direction = 0)
                 ?.subscribe(
                         { response ->
-                            Log.v("shows",response.items!!.toString())
+                            Log.v("shows",response.toString())
                              view?.renderShows(list = response.items!!)
                         },
                         { error ->

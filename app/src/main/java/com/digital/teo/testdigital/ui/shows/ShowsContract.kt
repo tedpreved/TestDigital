@@ -1,4 +1,4 @@
-package com.digital.teo.testdigital.network.ui.shows
+package com.digital.teo.testdigital.ui.shows
 
 import com.digital.teo.testdigital.network.model.Show
 import com.digital.teo.testdigital.network.response.ResponseShows
