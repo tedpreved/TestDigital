@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView
 
 
 /**
- * Created by Teo on 6/8/17.
+ * Created by Teo on 6/8/17
  */
 class DividerItemDecoration : RecyclerView.ItemDecoration {
     private val ATTRS = intArrayOf(android.R.attr.listDivider)
