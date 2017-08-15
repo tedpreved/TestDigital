@@ -8,7 +8,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvShowsList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/colorBlack" />
 
     <TextView
         android:id="@+id/tvShowsListEmpty"
@@ -16,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Nothing to show =(!" />
+        android:text="Nothing to show =(!"
+        android:textColor="@color/colorTextYellow" />
 
 </RelativeLayout>

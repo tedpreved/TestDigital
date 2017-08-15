@@ -31,7 +31,7 @@ class ShowsActivity : AppCompatActivity(), ShowsContract.View {
     }
 
     override fun renderShows(list: List<Show>) {
-        if (list.size != 0) tvShowsListEmpty.visibility = View.GONE
+        if (list.isNotEmpty()) tvShowsListEmpty.visibility = View.GONE
         showList.addAll(list)
         rvShowsList.adapter = ShowsAdapter(baseContext, showList)
         rvShowsList.visibility = View.VISIBLE
