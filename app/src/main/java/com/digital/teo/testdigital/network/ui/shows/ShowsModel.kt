@@ -5,7 +5,7 @@ import com.digital.teo.testdigital.network.util.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 /**
- * Created by Teo on 8/15/17.
+ * Created by Teo on 8/15/17
  */
 class ShowsModel : ShowsContract.Model {
     override fun getShowsObservable(borderId: String, direction: Int) =

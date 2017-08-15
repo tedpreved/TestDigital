@@ -1,5 +1,6 @@
 package com.digital.teo.testdigital.network.ui.shows
 
+import android.util.Log
 import com.digital.teo.testdigital.network.response.RxUtils
 import io.reactivex.disposables.CompositeDisposable
 
@@ -27,7 +28,8 @@ class ShowsPresenter : ShowsContract.Presenter {
         subscription?.add(model?.getShowsObservable(borderId = "0", direction = 0)
                 ?.subscribe(
                         { response ->
-                            response.items?.let { view?.renderShows(listShows = it) }
+                            Log.v("shows",response.items!!.toString())
+                             view?.renderShows(list = response.items!!)
                         },
                         { error ->
                             error.printStackTrace()

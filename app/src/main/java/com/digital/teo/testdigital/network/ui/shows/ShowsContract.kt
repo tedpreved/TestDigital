@@ -5,7 +5,7 @@ import com.digital.teo.testdigital.network.response.ResponseShows
 import io.reactivex.Observable
 
 /**
- * Created by Teo on 8/15/17.
+ * Created by Teo on 8/15/17
  */
 interface ShowsContract {
     interface Model {
@@ -13,9 +13,9 @@ interface ShowsContract {
     }
 
     interface View {
-        fun renderShows(listShows: List<Show>)
-        fun showError(message: String)
-        fun showMessage(message: String)
+        fun renderShows(list: List<Show>)
+        fun showError(message: String?)
+        fun showMessage(message: String?)
     }
 
     interface Presenter {
