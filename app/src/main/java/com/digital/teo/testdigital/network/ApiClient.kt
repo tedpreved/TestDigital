@@ -34,7 +34,7 @@ object ApiClient {
     interface ollTvApiInterface {
         @GET("demo?")
         fun getShowsListFromServer(@Query("serial_number") serialNumber: String,
-                                   @Query("borderId") borderId: Int,
+                                   @Query("borderId") borderId: String,
                                    @Query("direction") direction: Int): Observable<ResponseShows>
     }
 }
