@@ -64,6 +64,7 @@ class ShowsPresenter : ShowsContract.Presenter {
                                 offset = response.offset
                                 total = response.total
                                 hasMore = response.hasMore
+                                borderId = response.items?.last()?.id
                                 logResponse(response)
                                 view?.showProgress(isShown = false)
                             },
