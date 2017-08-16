@@ -13,6 +13,5 @@ class ShowsModel : ShowsContract.Model {
                     serialNumber = Utils.getMACAddress(interfaceName = "wlan0"),
                     borderId = borderId,
                     direction = direction)
-                    .subscribeOn(io.reactivex.schedulers.Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
+
 }

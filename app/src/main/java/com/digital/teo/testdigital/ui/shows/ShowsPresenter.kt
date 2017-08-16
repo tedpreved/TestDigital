@@ -3,6 +3,7 @@ package com.digital.teo.testdigital.ui.shows
 import android.util.Log
 import com.digital.teo.testdigital.network.response.ResponseShows
 import com.digital.teo.testdigital.network.response.RxUtils
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -31,6 +32,8 @@ class ShowsPresenter : ShowsContract.Presenter {
     override fun getShowsList() {
         view?.showProgress(isShown = true)
         subscription?.add(model?.getShowsObservable(borderId = "0", direction = 0)
+                ?.subscribeOn(io.reactivex.schedulers.Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe(
                         { response ->
                             Log.v("shows", response.toString())
@@ -55,6 +58,8 @@ class ShowsPresenter : ShowsContract.Presenter {
         if (hasMore != 0) {
             view?.showProgress(isShown = true)
             subscription?.add(model?.getShowsObservable(borderId = borderId, direction = 1)
+                    ?.subscribeOn(io.reactivex.schedulers.Schedulers.io())
+                    ?.observeOn(AndroidSchedulers.mainThread())
                     ?.subscribe(
                             { response ->
                                 Log.v("shows", response.toString())
@@ -78,6 +83,8 @@ class ShowsPresenter : ShowsContract.Presenter {
     override fun loadPreviousShowList(borderId: String) {
         if (offset != 0) {
             subscription?.add(model?.getShowsObservable(borderId = borderId, direction = -1)
+                    ?.subscribeOn(io.reactivex.schedulers.Schedulers.io())
+                    ?.observeOn(AndroidSchedulers.mainThread())
                     ?.subscribe(
                             { response ->
                                 Log.v("shows", response.toString())
