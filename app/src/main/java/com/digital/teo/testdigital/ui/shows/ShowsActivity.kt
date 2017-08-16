@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.digital.teo.testdigital.R
@@ -41,8 +42,12 @@ class ShowsActivity : AppCompatActivity(), ShowsContract.View {
     override fun renderShows(list: List<Show>) {
         if (list.isNotEmpty()) tvShowsListEmpty.visibility = View.GONE
         showList.addAll(list)
+        val recyclerViewState = rvShowsList.layoutManager.onSaveInstanceState()
+
+        Log.v("showListSize","${showList.size}")
         rvShowsList.adapter = ShowsAdapter(baseContext, showList)
         rvShowsList.visibility = View.VISIBLE
+        rvShowsList.layoutManager.onRestoreInstanceState(recyclerViewState)
     }
 
     override fun showError(message: String?) {
