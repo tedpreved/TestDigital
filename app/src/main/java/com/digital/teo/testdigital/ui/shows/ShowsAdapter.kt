@@ -42,4 +42,6 @@ class ShowsAdapter(val context: Context, val listOfShows: List<Show>) : Recycler
             name.text = show.name
         }
     }
+
+
 }

@@ -15,11 +15,11 @@ import java.util.ArrayList
 
 class ShowsActivity : AppCompatActivity(), ShowsContract.View {
     var presenter: ShowsContract.Presenter? = null
-    val showList: ArrayList<Show> = ArrayList()
+    var showList: ArrayList<Show> = ArrayList()
     val layManager = LinearLayoutManager(this)
     val scrollListener = object : EndlessRecyclerViewScrollListener(layManager) {
         override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
-            presenter?.getShowsList(loadNext = totalItemsCount)
+            presenter?.getShowsList(loadNext = totalItemsCount, borderId = showList.last().id)
         }
     }
 
@@ -32,22 +32,37 @@ class ShowsActivity : AppCompatActivity(), ShowsContract.View {
 
         with(rvShowsList) {
             layoutManager = layManager
+            adapter = ShowsAdapter(context, showList)
             addItemDecoration(DividerItemDecoration(this@ShowsActivity, R.drawable.custom_recycle_view_divider))
             addOnScrollListener(scrollListener)
         }
 
         presenter?.getShowsList()
+
+        swipeToRefresh?.setOnRefreshListener {
+            presenter?.loadPreviousShowList(borderId = showList.first().id)
+        }
     }
 
-    override fun renderShows(list: List<Show>) {
+    override fun renderShowsInEnd(list: List<Show>) {
         if (list.isNotEmpty()) tvShowsListEmpty.visibility = View.GONE
         showList.addAll(list)
         val recyclerViewState = rvShowsList.layoutManager.onSaveInstanceState()
 
-        Log.v("showListSize","${showList.size}")
-        rvShowsList.adapter = ShowsAdapter(baseContext, showList)
+        rvShowsList.adapter.notifyItemRangeInserted(showList.count(), list.count())
         rvShowsList.visibility = View.VISIBLE
         rvShowsList.layoutManager.onRestoreInstanceState(recyclerViewState)
+    }
+
+    override fun renderShowsAtStart(list: List<Show>) {
+//        val buff = ArrayList<Show>()
+//        buff.addAll(list)
+//        buff.addAll(showList)
+//        showList = buff
+
+        showList.addAll(0,list)
+        rvShowsList.adapter.notifyItemRangeInserted(0, list.count())
+        rvShowsList.visibility = View.VISIBLE
     }
 
     override fun showError(message: String?) {
@@ -61,5 +76,9 @@ class ShowsActivity : AppCompatActivity(), ShowsContract.View {
 
     override fun showProgress(isShown: Boolean) {
         progressBar.visibility = if (isShown) View.VISIBLE else View.GONE
+    }
+
+    override fun hideRefresh() {
+        swipeToRefresh.isRefreshing = false
     }
 }

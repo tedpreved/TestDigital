@@ -15,7 +15,6 @@ class ShowsPresenter : ShowsContract.Presenter {
     var offset: Int? = null // offset - количество элементов от начала списка до текущего borderId
     var total: Int? = null //total - общее количество элементов
     var hasMore: Int? = null //hasMore - количество элементов от borderId до конца списка
-    var borderId: String? = null
 
     override fun onCreate(view: ShowsContract.View, model: ShowsContract.Model) {
         this.view = view
@@ -35,11 +34,10 @@ class ShowsPresenter : ShowsContract.Presenter {
                 ?.subscribe(
                         { response ->
                             Log.v("shows", response.toString())
-                            view?.renderShows(list = response.items!!)
+                            view?.renderShowsInEnd(list = response.items!!)
                             offset = response.offset
                             total = response.total
                             hasMore = response.hasMore
-                            borderId = response.items?.last()?.id
                             view?.showProgress(isShown = false)
                         },
                         { error ->
@@ -53,18 +51,17 @@ class ShowsPresenter : ShowsContract.Presenter {
     }
 
 
-    override fun getShowsList(loadNext: Int) {
+    override fun getShowsList(loadNext: Int, borderId: String) {
         if (hasMore != 0) {
             view?.showProgress(isShown = true)
-            subscription?.add(model?.getShowsObservable(borderId = borderId!!, direction = 1)
+            subscription?.add(model?.getShowsObservable(borderId = borderId, direction = 1)
                     ?.subscribe(
                             { response ->
                                 Log.v("shows", response.toString())
-                                view?.renderShows(list = response.items!!)
+                                view?.renderShowsInEnd(list = response.items!!)
                                 offset = response.offset
                                 total = response.total
                                 hasMore = response.hasMore
-                                borderId = response.items?.last()?.id
                                 logResponse(response)
                                 view?.showProgress(isShown = false)
                             },
@@ -76,6 +73,28 @@ class ShowsPresenter : ShowsContract.Presenter {
                     ))
         }
 
+    }
+
+    override fun loadPreviousShowList(borderId: String) {
+        if (offset != 0) {
+            subscription?.add(model?.getShowsObservable(borderId = borderId, direction = -1)
+                    ?.subscribe(
+                            { response ->
+                                Log.v("shows", response.toString())
+                                view?.renderShowsAtStart(list = response.items!!)
+                                offset = response.offset
+                                total = response.total
+                                hasMore = response.hasMore
+                                logResponse(response)
+                                view?.hideRefresh()
+                            },
+                            { error ->
+                                error.printStackTrace()
+                                error.message?.let { view?.showError(message = it) }
+                                view?.hideRefresh()
+                            }
+                    ))
+        }
     }
 
     fun logResponse(responseShows: ResponseShows) = Log.v("RESPONSE",

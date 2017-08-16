@@ -13,16 +13,19 @@ interface ShowsContract {
     }
 
     interface View {
-        fun renderShows(list: List<Show>)
+        fun renderShowsInEnd(list: List<Show>)
+        fun renderShowsAtStart(list: List<Show>)
         fun showError(message: String?)
         fun showMessage(message: String?)
         fun showProgress(isShown: Boolean)
+        fun hideRefresh()
     }
 
     interface Presenter {
         fun onCreate(view: View, model: Model)
         fun onDestroy()
         fun getShowsList()
-        fun getShowsList(loadNext: Int)
+        fun getShowsList(loadNext: Int, borderId: String)
+        fun loadPreviousShowList(borderId: String)
     }
 }
